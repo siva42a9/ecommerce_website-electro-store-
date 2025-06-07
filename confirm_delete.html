@@ -1,0 +1,95 @@
+{% extends 'shop/base.html' %}
+{% block title %}Delete Product{% endblock %}
+{% block content %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .form-container p {
+        font-size: 1.1rem;
+        color: #666;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-container form {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .form-container button {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .form-container button:hover {
+        background-color: #c0392b;
+        transform: scale(1.02);
+    }
+
+    .form-container a {
+        display: inline-block;
+        background-color: #3498db;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .form-container a:hover {
+        background-color: #2980b9;
+        transform: scale(1.02);
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .form-container h2 {
+            font-size: 1.8rem;
+        }
+
+        .form-container button,
+        .form-container a {
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+        }
+    }
+</style>
+<div class="form-container">
+    <h2>Delete Product</h2>
+    <p>Are you sure you want to delete "{{ product.name }}"? This action cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+        <a href="{% url 'product_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

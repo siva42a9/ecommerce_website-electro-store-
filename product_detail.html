@@ -1,0 +1,113 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<style>
+    .product-detail {
+        display: flex;
+        gap: 2rem;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .product-detail img {
+        max-width: 400px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .product-info h2 {
+        font-size: 2rem;
+        color: #2c3e50;
+        font-weight: bold;
+    }
+
+    .product-info p {
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.8;
+    }
+
+    .product-info strong {
+        color: #2c3e50;
+    }
+
+    .product-info a {
+        background-color: #3498db;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        width: fit-content;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .product-info a:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .product-detail {
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .product-detail img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-info h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .product-info h2 {
+            font-size: 1.5rem;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+        }
+
+        .product-info a {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+</style>
+<div class="product-detail">
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder">
+    {% endif %}
+    <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <p><strong>Stock:</strong> {{ product.stock }} available</p>
+        <a href="{% url 'add_to_cart' product.pk %}">Add to Cart</a>
+    </div>
+</div>
+{% endblock %}
